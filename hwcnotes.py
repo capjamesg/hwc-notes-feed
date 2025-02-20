@@ -17,10 +17,12 @@ event_names = {
     "front-end": "Front-End Study Hall",
     "writing": "HWC Writing",
     "nuremberg": "HWC Nuremberg",
-    "more": "More Events"
+    "more": "More Events",
+    "all": "All Events"
 }
 
 link_groups = {
+    "all": {},
     "hwc-pacific": {},
     "hwc-europe": {},
     "front-end": {},
@@ -60,8 +62,15 @@ for items in merges.values():
     for i in items:
         del link_groups[i]
 
+link_groups["all"] = []
+
+for group in link_groups:
+    link_groups["all"].extend(link_groups[group])
+
+# sort
+link_groups["all"] = sorted(link_groups["all"], key=lambda x: x[1], reverse=True)
+
 rendered = jinja2.Template(template).render(events=link_groups, eventid2name=event_names)
 
-# save as out.html
-with open("out.html", "w") as f:
+with open("index.html", "w") as f:
     f.write(rendered)

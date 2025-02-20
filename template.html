@@ -58,8 +58,12 @@
             {% for event_id, event_list in events.items() %}
                 <div class="h-feed">
                     <h2 class="p-name" id="{{ event_id }}">{{ eventid2name[event_id] }}</h2>
+                    <ul>
                         {% for slug, name in event_list[:10] %}
-                            <li class="h-entry"><a href="https://indieweb.org{{ slug }}" class="p-name u-url">{{ name }}</a></li>
+                            <li class="h-entry">
+                                <a href="https://indieweb.org{{ slug }}" class="p-name u-url">{% if event_id == "all" %}{{ slug.replace("/events/", "") }}{% else %}{{ name }}{% endif %}</a>
+                                <time class="dt-published published" datetime="{{ name }}"></time>
+                            </li>
                         {% endfor %}
                     </ul>
                     <p><a href="https://granary.io/url?input=html&output=rss&url=https://jamesg.blog/hwc-notes/#{{ event_id }}">Subscribe to this feed →</a></p>
