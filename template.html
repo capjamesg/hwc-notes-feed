@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndieWeb Event Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inria Serif', serif;
+        }
+        ul li a {
+            font-family: monospace;
+        }
+        h1 {
+            margin-bottom: 0;
+        }
+        h1 + p {
+            margin-bottom: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+            gap: 1em;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        body {
+            max-width: 50rem;
+            margin: auto;
+        }
+        img {
+            float: right;
+            max-width: 50%;
+        }
+        main {
+            padding: 1rem;
+        }
+        @media screen and (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <img src="https://indieweb.org/images/thumb/6/67/indiewebcamp-logo-lockup-color%403x.png/1200px-indiewebcamp-logo-lockup-color%403x.png" />
+        <h1>IndieWeb Event Notes</h1>
+        <p>Explore notes for previous <a href="https://indieweb.org/Homebrew_Website_Club">Homebrew Website Club</a> meetings.</p>
+        <p>This shows the last 10 event note links for recurring events.</p>
+        <p><a href="https://events.indieweb.org">Explore more events →</a></p>
+        <section class="grid">
+            {% for event_id, event_list in events.items() %}
+                <div class="h-feed">
+                    <h2 class="p-name" id="{{ event_id }}">{{ eventid2name[event_id] }}</h2>
+                        {% for slug, name in event_list[:10] %}
+                            <li class="h-entry"><a href="https://indieweb.org{{ slug }}" class="p-name u-url">{{ name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <p><a href="https://granary.io/url?input=html&output=rss&url=https://jamesg.blog/hwc-notes/#{{ event_id }}">Subscribe to this feed →</a></p>
+                </div>
+            {% endfor %}
+        </section>
+        <footer>
+            <p>You can suggest changes to this project on <a href="https://github.com/capjamesg/hwc-notes">the project GitHub repository</a>.</p>
+        </footer>
+    </main>
+</body>
+</html>
